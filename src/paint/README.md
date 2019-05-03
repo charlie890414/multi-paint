@@ -64,6 +64,9 @@ Platform.runLater(new Runnable() {
 ### Known bug
 
 ~~Server can't connect more than one client~~
+
 Socket Fill tune out Exception
+
 Sometimes line and eraser may be strange
+
 Socket Close Exception may be clearly
