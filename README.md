@@ -8,7 +8,7 @@
 ##### [JAVAFX 12](https://openjfx.io/)
 
 ##### Set  VM arguments
-```java
+```
 --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls
 ```
 ##### Run paint.java
@@ -28,19 +28,19 @@
 - [x] Circle
 	
 	- [x] Socket support
-	- [x] Animation
+	- [ ] Animation
 - [x] Pencil
 	
 	- [x] Socket support
-	- [x] Animation
+	- [ ] Animation
 - [x] Eraser
 	
 	- [x] Socket support
-	- [x] Animation
+	- [ ] Animation
 - [x] Square
 	
 	- [x] Socket support
-	- [x] Animation
+	- [ ] Animation
 - [x] Fill
 	
 	- [ ] Socket support
@@ -64,17 +64,6 @@ Platform.runLater(new Runnable() {
 ### Known bug
 
 ~~Server can't connect more than one client~~
-
-<<<<<<< Updated upstream
 Socket Fill tune out Exception
-
 Sometimes line and eraser may be strange
-
 Socket Close Exception may be clearly
-=======
-Socket Fill turn out exception
-
-Sometimes line and eraser may be strange
-
-Socket close have exception error noise
->>>>>>> Stashed changes
