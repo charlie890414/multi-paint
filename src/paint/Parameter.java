@@ -8,18 +8,18 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 
 public class Parameter {
-	public boolean START_DRAW;
-	public String DRAW_MOD;
-	public Color DRAW_COLOR;
-	public int DRAW_LINEWIDTH;
-	public double DRAW_STARTX;
-	public double DRAW_STARTY;
+	public boolean START_DRAW = false;
+	public String DRAW_MOD = "PENCIL";
+	public Color DRAW_COLOR = Color.BLACK;
+	public int DRAW_LINEWIDTH = 1;
+	public double DRAW_STARTX = 0;
+	public double DRAW_STARTY = 0;
 	public Circle penanimation;
 	public Rectangle rectangleanimation;
 	public Ellipse ellipseanimation;
 	public Vector<History> history = new Vector<History>();
-	public History historytmp;
-	public Integer history_pointer;
+	public History historytmp = null;
+	public Integer history_pointer = 0;
 	public Vector<SocketServer> Server = new Vector<SocketServer>();
-	public SocketClient Client;
+	public SocketClient Client = null;
 }
