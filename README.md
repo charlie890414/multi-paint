@@ -1,72 +1,53 @@
 # Muti-Paint
-#### NCU Introduction to Computer Science Ⅱ Lab Final Project
 
+NCU Introduction to Computer Science Ⅱ Lab Final Project
 
+## Setup
 
+### [JAVAFX 12](https://openjfx.io/)
 
-### Setup
-##### [JAVAFX 12](https://openjfx.io/)
+### Set  VM arguments
 
-##### Set  VM arguments
-```
+```bash
 --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls
 ```
-##### Run paint.java
 
-
+### Run paint.java
 
 ---
-
-
 
 ### Feature
 
 - [ ] Line
-	
-	- [ ] Socket support
-	- [ ] Animation
+  - [ ] Socket support
+  - [ ] Animation
 - [x] Circle
-	
-	- [x] Socket support
-	- [ ] Animation
+  - [x] Socket support
+  - [x] Animation
 - [x] Pencil
-	
-	- [x] Socket support
-	- [ ] Animation
+  - [x] Socket support
+  - [x] Animation
 - [x] Eraser
-	
-	- [x] Socket support
-	- [ ] Animation
+  - [x] Socket support
+  - [x] Animation
 - [x] Square
-	
-	- [x] Socket support
-	- [ ] Animation
+  - [x] Socket support
+  - [x] Animation
 - [x] Fill
-	
-	- [ ] Socket support
-```Java
-Platform.runLater(new Runnable() {
-	@Override public void run() {
-        //pass
-    }
-});
-```
+  - [x] Socket support
 - [x] Undo
-	
-	- [x] Socket support
+  - [x] Socket support
 - [x] Redo
-  
-    - [x]  Socket support
+  - [x] Socket support
 - [ ]  Hollow & Solid
-	
-	- [ ]  Socket support
+  - [ ] Socket support
 
 ### Known bug
 
 ~~Server can't connect more than one client~~
 
-Socket Fill tune out Exception
+~~Socket Fill tune out Exception~~
 
 Sometimes line and eraser may be strange
 
-Socket Close Exception may be clearly
+Catch Socket Close Exception
