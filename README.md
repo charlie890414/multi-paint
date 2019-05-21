@@ -6,7 +6,7 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
 
 ### [JAVAFX 12](https://openjfx.io/)
 
-### Set  VM arguments
+### Set VM arguments
 
 ```bash
 --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls
@@ -14,10 +14,16 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
 
 ### Run paint.java
 
+or
+
+### Press F5 in VScode
+
 ---
 
 ### Feature
 
+- [ ] Text
+  - [ ] Socket support
 - [ ] Line
   - [ ] Socket support
   - [ ] Animation
@@ -41,6 +47,7 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
   - [x] Socket support
 - [ ]  Hollow & Solid
   - [ ] Socket support
+- [X] GZIP while Socket
 
 ### Known bug
 
