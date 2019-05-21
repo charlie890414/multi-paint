@@ -766,7 +766,8 @@ public class Paint extends Application {
 						parameter.historytmp.point
 								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
 										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
-					} else if (parameter.DRAW_MOD == "ERASER") {
+					}
+					else if (parameter.DRAW_MOD == "ERASER") {
 						parameter.penanimation = new Circle(e.getX(), e.getY() + 2, parameter.DRAW_LINEWIDTH,
 								Color.WHITE);
 						parameter.penanimation.setStroke(Color.BLACK);
@@ -778,12 +779,14 @@ public class Paint extends Application {
 						parameter.historytmp.point
 								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
 										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
-					} else if (parameter.DRAW_MOD == "SQUARE") {
+					}
+					else if (parameter.DRAW_MOD == "SQUARE") {
 						parameter.rectangleanimation = new Rectangle(e.getX(), e.getY(), 0, 0);
 						parameter.rectangleanimation.setFill(parameter.DRAW_COLOR);
 						border.getChildren().add(parameter.rectangleanimation);
 						primaryStage.show();
-					} else if (parameter.DRAW_MOD == "CIRCLE") {
+					}
+					else if (parameter.DRAW_MOD == "CIRCLE") {
 						parameter.ellipseanimation = new Ellipse(e.getX(), e.getY(), 0, 0);
 						parameter.ellipseanimation.setFill(parameter.DRAW_COLOR);
 						border.getChildren().add(parameter.ellipseanimation);
@@ -808,12 +811,14 @@ public class Paint extends Application {
 						timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1), kv2));
 						timeline.play();
 						gc.setStroke(parameter.DRAW_COLOR);
-						gc.lineTo((int) (Math.round((e.getX() - 140))), (int) (Math.round(e.getY() - 20.0)));
+						gc.lineTo((int) (Math.round((e.getX() - 140))),
+								(int) (Math.round(e.getY() - 20.0)));
 						gc.stroke();
 						parameter.historytmp.point
 								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
 										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
-					} else if (parameter.DRAW_MOD == "ERASER") {
+					}
+					else if (parameter.DRAW_MOD == "ERASER") {
 						Timeline timeline = new Timeline();
 						KeyValue kv1 = new KeyValue(parameter.penanimation.centerXProperty(),
 								(int) (Math.round(e.getX() - 140.0)) + 140);
@@ -828,7 +833,8 @@ public class Paint extends Application {
 						parameter.historytmp.point
 								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
 										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
-					} else if (parameter.DRAW_MOD == "SQUARE") {
+					}
+					else if (parameter.DRAW_MOD == "SQUARE") {
 						Timeline timeline = new Timeline();
 						KeyValue kv1 = new KeyValue(parameter.rectangleanimation.xProperty(),
 								Math.min(parameter.DRAW_STARTX, (int) (Math.round(e.getX() - 140.0))) + 140);
@@ -843,7 +849,8 @@ public class Paint extends Application {
 						timeline.getKeyFrames().add(new KeyFrame(Duration.millis(10), kv3));
 						timeline.getKeyFrames().add(new KeyFrame(Duration.millis(10), kv4));
 						timeline.play();
-					} else if (parameter.DRAW_MOD == "CIRCLE") {
+					}
+					else if (parameter.DRAW_MOD == "CIRCLE") {
 						Timeline timeline = new Timeline();
 						KeyValue kv1 = new KeyValue(parameter.ellipseanimation.centerXProperty(),
 								Math.min(parameter.DRAW_STARTX, (int) (Math.round(e.getX() - 140.0))) + 140
@@ -880,14 +887,16 @@ public class Paint extends Application {
 									Math.min(parameter.DRAW_STARTY, (int) (Math.round(e.getY() - 20.0))),
 									Math.abs((int) (Math.round(e.getX() - 140.0)) - parameter.DRAW_STARTX),
 									Math.abs((int) (Math.round(e.getY() - 20.0)) - parameter.DRAW_STARTY));
-						} else if (parameter.DRAW_MOD == "CIRCLE") {
+						}
+						else if (parameter.DRAW_MOD == "CIRCLE") {
 							gc.setFill(parameter.DRAW_COLOR);
 							gc.setStroke(parameter.DRAW_COLOR);
 							gc.fillOval(Math.min(parameter.DRAW_STARTX, (int) (Math.round(e.getX() - 140.0))),
 									Math.min(parameter.DRAW_STARTY, (int) (Math.round(e.getY() - 20.0))),
 									Math.abs((int) (Math.round(e.getX() - 140.0)) - parameter.DRAW_STARTX),
 									Math.abs((int) (Math.round(e.getY() - 20.0)) - parameter.DRAW_STARTY));
-						} else if (parameter.DRAW_MOD == "FILL") {
+						}
+						else if (parameter.DRAW_MOD == "FILL") {
 							PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
 							PixelWriter gpw = gc.getPixelWriter();
 							Color currnt_color = gpr.getColor((int) (e.getX() - 140.0), (int) (e.getY() - 20.0));

@@ -16,31 +16,29 @@ public class History implements java.io.Serializable {
 	Color DRAW_COLOR;
 	double red;
 	double green;
-	double blue;
+	double blue; 
 	double opacity;
 	int DRAW_LINEWIDTH;
 	Vector<Pair<Integer, Integer>> point = new Vector<Pair<Integer, Integer>>();
 	Timestamp create_time;
 
 	public void mergecolor() {
-		if (DRAW_COLOR == null) {
-			DRAW_COLOR = new Color(red, green, blue, opacity);
-		}
+		DRAW_COLOR = new Color(red,green,blue,opacity);
 	}
 
 	public void separatecolor() {
-		if (DRAW_COLOR != null) {
+		if(DRAW_COLOR!=null) {
 			red = DRAW_COLOR.getRed();
 			green = DRAW_COLOR.getGreen();
 			blue = DRAW_COLOR.getBlue();
 			opacity = DRAW_COLOR.getOpacity();
 			DRAW_COLOR = null;
-		}
+		}		
 	}
 
 	public String toString() {
 		return "DRAW_MOD: " + DRAW_MOD + "\n" + "DRAW_STARTX: " + DRAW_STARTX + "\n" + "DRAW_STARTY: " + DRAW_STARTY
 				+ "\n" + "DRAW_ENDX: " + DRAW_ENDX + "\n" + "DRAW_ENDY: " + DRAW_ENDY + "\n" + "DRAW_LINEWIDTH: "
-				+ DRAW_LINEWIDTH + "\n" + "point: " + point + "\n" + "create_time: " + create_time;
+				+ DRAW_LINEWIDTH + "\n" + "point: " + point + "\n" + "create_time: " + create_time + "\n";
 	}
 }
