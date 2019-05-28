@@ -9,6 +9,7 @@ import javafx.util.Pair;
 public class History implements java.io.Serializable {
 	private static final long serialVersionUID = 2L;
 	String DRAW_MOD;
+	int DRAW_LINEWIDTH;
 	double DRAW_STARTX;
 	double DRAW_STARTY;
 	double DRAW_ENDX;
@@ -18,8 +19,8 @@ public class History implements java.io.Serializable {
 	double green;
 	double blue;
 	double opacity;
-	int DRAW_LINEWIDTH;
-	Vector<Pair<Integer, Integer>> point = new Vector<Pair<Integer, Integer>>();
+	Vector<Pair<Integer, Integer>> fillpoint = new Vector<Pair<Integer, Integer>>();
+	Vector<Pair<Double, Double>> point = new Vector<Pair<Double, Double>>();
 	Timestamp create_time;
 
 	public void mergecolor() {

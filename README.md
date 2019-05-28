@@ -48,6 +48,6 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
 
 ~~Socket Fill tune out Exception~~
 
-Sometimes line and eraser may be strange
+~~Sometimes line and eraser may be strange~~
 
 Catch Socket Close Exception

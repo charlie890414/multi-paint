@@ -108,17 +108,17 @@ public class Paint extends Application {
 		if (current.DRAW_MOD.equals("FILL")) {
 			PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
 			PixelWriter gpw = gc.getPixelWriter();
-			Color currnt_color = gpr.getColor(current.point.get(0).getKey(), current.point.get(0).getValue());
+			Color currnt_color = gpr.getColor(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue());
 			boolean visited[][] = new boolean[(int) canvas.getWidth()][(int) canvas.getHeight()];
 			Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-			q.add(new Pair<>(current.point.get(0).getKey(), current.point.get(0).getValue()));
+			q.add(new Pair<>(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue()));
 			while (!q.isEmpty()) {
 				Pair<Integer, Integer> pair = q.poll();
 				if (visited[pair.getKey()][pair.getValue()] == true)
 					continue;
 				visited[pair.getKey()][pair.getValue()] = true;
+				gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
 				if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {
-					gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
 					if (pair.getKey() + 1 < canvas.getWidth()) {
 						q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
 						if (pair.getValue() + 1 < canvas.getHeight()) {
@@ -199,17 +199,17 @@ public class Paint extends Application {
 				if (current.DRAW_MOD.equals("FILL")) {
 					PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
 					PixelWriter gpw = gc.getPixelWriter();
-					Color currnt_color = gpr.getColor(current.point.get(0).getKey(), current.point.get(0).getValue());
+					Color currnt_color = gpr.getColor(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue());
 					boolean visited[][] = new boolean[(int) canvas.getWidth()][(int) canvas.getHeight()];
 					Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-					q.add(new Pair<>(current.point.get(0).getKey(), current.point.get(0).getValue()));
+					q.add(new Pair<>(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue()));
 					while (!q.isEmpty()) {
 						Pair<Integer, Integer> pair = q.poll();
 						if (visited[pair.getKey()][pair.getValue()] == true)
 							continue;
 						visited[pair.getKey()][pair.getValue()] = true;
+						gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
 						if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {
-							gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
 							if (pair.getKey() + 1 < canvas.getWidth()) {
 								q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
 								if (pair.getValue() + 1 < canvas.getHeight()) {
@@ -288,17 +288,17 @@ public class Paint extends Application {
 			if (current.DRAW_MOD.equals("FILL")) {
 				PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
 				PixelWriter gpw = gc.getPixelWriter();
-				Color currnt_color = gpr.getColor(current.point.get(0).getKey(), current.point.get(0).getValue());
+				Color currnt_color = gpr.getColor(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue());
 				boolean visited[][] = new boolean[(int) canvas.getWidth()][(int) canvas.getHeight()];
 				Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-				q.add(new Pair<>(current.point.get(0).getKey(), current.point.get(0).getValue()));
+				q.add(new Pair<>(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue()));
 				while (!q.isEmpty()) {
 					Pair<Integer, Integer> pair = q.poll();
 					if (visited[pair.getKey()][pair.getValue()] == true)
 						continue;
 					visited[pair.getKey()][pair.getValue()] = true;
+					gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
 					if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {
-						gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
 						if (pair.getKey() + 1 < canvas.getWidth()) {
 							q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
 							if (pair.getValue() + 1 < canvas.getHeight()) {
@@ -748,7 +748,7 @@ public class Paint extends Application {
 					parameter.historytmp.DRAW_COLOR = parameter.DRAW_COLOR;
 					parameter.historytmp.DRAW_MOD = parameter.DRAW_MOD;
 					parameter.historytmp.DRAW_LINEWIDTH = parameter.DRAW_LINEWIDTH;
-					parameter.DRAW_STARTX = (int) (Math.round(e.getX() - 140.0));
+					parameter.DRAW_STARTX = (Math.round(e.getX() - 140.0));
 					parameter.DRAW_STARTY = (int) (Math.round(e.getY() - 20.0));
 					gc.beginPath();
 					gc.setLineWidth(parameter.DRAW_LINEWIDTH);
@@ -760,11 +760,11 @@ public class Paint extends Application {
 						border.getChildren().add(parameter.penanimation);
 						primaryStage.show();
 						gc.setStroke(parameter.DRAW_COLOR);
-						gc.lineTo((int) (Math.round(e.getX() - 140)), (int) (Math.round(e.getY() - 20.0)));
+						gc.lineTo(e.getX() - 140, e.getY() - 20.0);
 						gc.stroke();
 						parameter.historytmp.point
-								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
-										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
+								.add(new Pair<Double, Double>(Double.valueOf(e.getX() - 140),
+								Double.valueOf(e.getY() - 20.0)));
 					} else if (parameter.DRAW_MOD == "ERASER") {
 						parameter.penanimation = new Circle(e.getX(), e.getY() + 2, parameter.DRAW_LINEWIDTH,
 								Color.WHITE);
@@ -772,11 +772,11 @@ public class Paint extends Application {
 						border.getChildren().add(parameter.penanimation);
 						primaryStage.show();
 						gc.setStroke(Color.WHITE);
-						gc.lineTo((int) (Math.round(e.getX() - 140.0)), (int) (Math.round(e.getY() - 20.0)));
+						gc.lineTo(e.getX() - 140, e.getY() - 20.0);
 						gc.stroke();
 						parameter.historytmp.point
-								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
-										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
+								.add(new Pair<Double, Double>(Double.valueOf(e.getX() - 140),
+								Double.valueOf(e.getY() - 20.0)));
 					} else if (parameter.DRAW_MOD == "SQUARE") {
 						parameter.rectangleanimation = new Rectangle(e.getX(), e.getY(), 0, 0);
 						parameter.rectangleanimation.setFill(parameter.DRAW_COLOR);
@@ -807,11 +807,11 @@ public class Paint extends Application {
 						timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1), kv2));
 						timeline.play();
 						gc.setStroke(parameter.DRAW_COLOR);
-						gc.lineTo((int) (Math.round((e.getX() - 140))), (int) (Math.round(e.getY() - 20.0)));
+						gc.lineTo(e.getX() - 140, e.getY() - 20.0);
 						gc.stroke();
 						parameter.historytmp.point
-								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
-										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
+								.add(new Pair<Double, Double>(Double.valueOf(e.getX() - 140),
+								Double.valueOf(e.getY() - 20.0)));
 					} else if (parameter.DRAW_MOD == "ERASER") {
 						Timeline timeline = new Timeline();
 						KeyValue kv1 = new KeyValue(parameter.penanimation.centerXProperty(),
@@ -822,11 +822,11 @@ public class Paint extends Application {
 						timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1), kv2));
 						timeline.play();
 						gc.setStroke(Color.WHITE);
-						gc.lineTo((int) (Math.round(e.getX() - 140.0)), (int) (Math.round(e.getY() - 20.0)));
+						gc.lineTo(e.getX() - 140, e.getY() - 20.0);
 						gc.stroke();
 						parameter.historytmp.point
-								.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
-										Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
+								.add(new Pair<Double, Double>(Double.valueOf(e.getX() - 140),
+								Double.valueOf(e.getY() - 20.0)));
 					} else if (parameter.DRAW_MOD == "SQUARE") {
 						Timeline timeline = new Timeline();
 						KeyValue kv1 = new KeyValue(parameter.rectangleanimation.xProperty(),
@@ -898,8 +898,8 @@ public class Paint extends Application {
 								if (visited[pair.getKey()][pair.getValue()] == true)
 									continue;
 								visited[pair.getKey()][pair.getValue()] = true;
-								if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {
-									gpw.setColor(pair.getKey(), pair.getValue(), parameter.DRAW_COLOR);
+								gpw.setColor(pair.getKey(), pair.getValue(), parameter.DRAW_COLOR);	
+								if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {	
 									if (pair.getKey() + 1 < canvas.getWidth()) {
 										q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
 										if (pair.getValue() + 1 < canvas.getHeight()) {
@@ -924,9 +924,9 @@ public class Paint extends Application {
 									if (pair.getValue() + 1 < canvas.getHeight()) {
 										q.add(new Pair<>(pair.getKey(), pair.getValue() + 1));
 									}
-								}
+								}	
 							}
-							parameter.historytmp.point
+							parameter.historytmp.fillpoint
 									.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
 											Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
 						}

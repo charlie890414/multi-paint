@@ -10,7 +10,7 @@
             "request": "launch",
             "mainClass": "paint.Paint",
             "projectName": "Final",
-            "vmArgs": "--module-path ./javafx12/lib --add-modules javafx.controls"
+            "vmArgs": "--module-path ./javafx-sdk-12/lib --add-modules javafx.controls"
         }
     ]
 }
