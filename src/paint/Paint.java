@@ -238,6 +238,7 @@ public class Paint extends Application {
 					}
 				}
 				gc.closePath();
+				current.separatecolor();
 			}
 		}
 	}
@@ -327,6 +328,7 @@ public class Paint extends Application {
 				}
 			}
 			gc.closePath();
+			current.separatecolor();
 		}
 	}
 

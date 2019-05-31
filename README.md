@@ -2,6 +2,8 @@
 
 NCU Introduction to Computer Science Ⅱ Lab Final Project
 
+資工一B 107502581 歐陽詮
+
 ## Setup
 
 ### [JAVAFX 12](https://openjfx.io/)
@@ -18,9 +20,6 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
 
 ### Feature
 
-- [ ] Line
-  - [ ] Socket support
-  - [ ] Animation
 - [x] Circle
   - [x] Socket support
   - [x] Animation
@@ -39,15 +38,3 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
   - [x] Socket support
 - [x] Redo
   - [x] Socket support
-- [ ]  Hollow & Solid
-  - [ ] Socket support
-
-### Known bug
-
-~~Server can't connect more than one client~~
-
-~~Socket Fill tune out Exception~~
-
-~~Sometimes line and eraser may be strange~~
-
-Catch Socket Close Exception

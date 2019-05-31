@@ -44,7 +44,6 @@ public class SocketClient extends java.lang.Thread {
 			in = new ObjectInputStream(client.getInputStream());
 			while (client.isConnected()) {
 				Message data = (Message) in.readObject();
-				System.out.println("客戶端訊息:\n" + data.history.toString());
 				messages.add(data);
 			}
 		} catch (Exception e) {

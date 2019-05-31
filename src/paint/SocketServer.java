@@ -34,7 +34,6 @@ public class SocketServer extends java.lang.Thread {
 			in = new ObjectInputStream(Server.getInputStream());
 			while (Server.isConnected()) {
 				Message data = (Message) in.readObject();
-				System.out.println("客戶端訊息:\n" + data.history.toString());
 				messages.add(data);
 			}
 		} catch (Exception e) {
