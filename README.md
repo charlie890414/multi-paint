@@ -11,7 +11,7 @@ NCU Introduction to Computer Science Ⅱ Lab Final Project
 ### Set  VM arguments
 
 ```bash
---module-path /path/to/javafx-sdk/lib --add-modules javafx.controls
+mvn install
 ```
 
 ### Run paint.java
