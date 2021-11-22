@@ -66,17 +66,12 @@ public class Paint extends Application {
 
 	private void draw(History current) {
 		current.mergecolor();
-		if (parameter.history.size() > parameter.history_pointer) {
-			parameter.history.subList(parameter.history_pointer, parameter.history.size()).clear();
-		}
-		parameter.history.add(current);
-		parameter.history_pointer++;
 		gc.beginPath();
 		if (current.DRAW_MOD.equals("PENCIL")) {
 			gc.setLineWidth(current.DRAW_LINEWIDTH);
 			gc.setStroke(current.DRAW_COLOR);
 			for (int j = 0; j < current.point.size(); j++) {
-				gc.lineTo(current.point.get(j).getKey(), current.point.get(j).getValue());
+				gc.lineTo(Math.round(current.point.get(j).getKey()), Math.round(current.point.get(j).getValue()));
 				gc.stroke();
 			}
 		}
@@ -159,86 +154,7 @@ public class Paint extends Application {
 			gc.fillRect(0, 0, 500, 360);
 			for (int i = 0; i < parameter.history_pointer; i++) {
 				History current = parameter.history.get(i);
-				current.mergecolor();
-				gc.beginPath();
-				if (current.DRAW_MOD.equals("PENCIL")) {
-					gc.setLineWidth(current.DRAW_LINEWIDTH);
-					gc.setStroke(current.DRAW_COLOR);
-					for (int j = 0; j < current.point.size(); j++) {
-						gc.lineTo(current.point.get(j).getKey(), current.point.get(j).getValue());
-						gc.stroke();
-					}
-				}
-				if (current.DRAW_MOD.equals("ERASER")) {
-					gc.setLineWidth(current.DRAW_LINEWIDTH);
-					gc.setStroke(Color.WHITE);
-					for (int j = 0; j < current.point.size(); j++) {
-						gc.lineTo(current.point.get(j).getKey(), current.point.get(j).getValue());
-						gc.stroke();
-					}
-				}
-				if (current.DRAW_MOD.equals("SQUARE")) {
-					gc.setLineWidth(current.DRAW_LINEWIDTH);
-					gc.setStroke(current.DRAW_COLOR);
-					gc.setFill(current.DRAW_COLOR);
-					gc.fillRect(Math.min(current.DRAW_STARTX, current.DRAW_ENDX),
-							Math.min(current.DRAW_STARTY, current.DRAW_ENDY),
-							Math.abs(current.DRAW_ENDX - current.DRAW_STARTX),
-							Math.abs(current.DRAW_ENDY - current.DRAW_STARTY));
-
-				}
-				if (current.DRAW_MOD.equals("CIRCLE")) {
-					gc.setLineWidth(current.DRAW_LINEWIDTH);
-					gc.setStroke(current.DRAW_COLOR);
-					gc.setFill(current.DRAW_COLOR);
-					gc.fillOval(Math.min(current.DRAW_STARTX, current.DRAW_ENDX),
-							Math.min(current.DRAW_STARTY, current.DRAW_ENDY),
-							Math.abs(current.DRAW_ENDX - current.DRAW_STARTX),
-							Math.abs(current.DRAW_ENDY - current.DRAW_STARTY));
-				}
-				if (current.DRAW_MOD.equals("FILL")) {
-					PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
-					PixelWriter gpw = gc.getPixelWriter();
-					Color currnt_color = gpr.getColor(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue());
-					boolean visited[][] = new boolean[(int) canvas.getWidth()][(int) canvas.getHeight()];
-					Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-					q.add(new Pair<>(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue()));
-					while (!q.isEmpty()) {
-						Pair<Integer, Integer> pair = q.poll();
-						if (visited[pair.getKey()][pair.getValue()] == true)
-							continue;
-						visited[pair.getKey()][pair.getValue()] = true;
-						gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
-						if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {
-							if (pair.getKey() + 1 < canvas.getWidth()) {
-								q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
-								if (pair.getValue() + 1 < canvas.getHeight()) {
-									q.add(new Pair<>(pair.getKey() + 1, pair.getValue() + 1));
-								}
-								if (pair.getValue() - 1 >= 0) {
-									q.add(new Pair<>(pair.getKey() + 1, pair.getValue() - 1));
-								}
-							}
-							if (pair.getKey() - 1 >= 0) {
-								q.add(new Pair<>(pair.getKey() - 1, pair.getValue()));
-								if (pair.getValue() + 1 < canvas.getHeight()) {
-									q.add(new Pair<>(pair.getKey() - 1, pair.getValue() + 1));
-								}
-								if (pair.getValue() - 1 >= 0) {
-									q.add(new Pair<>(pair.getKey() - 1, pair.getValue() - 1));
-								}
-							}
-							if (pair.getValue() - 1 >= 0) {
-								q.add(new Pair<>(pair.getKey(), pair.getValue() - 1));
-							}
-							if (pair.getValue() + 1 < canvas.getHeight()) {
-								q.add(new Pair<>(pair.getKey(), pair.getValue() + 1));
-							}
-						}
-					}
-				}
-				gc.closePath();
-				current.separatecolor();
+				draw(current);
 			}
 		}
 	}
@@ -248,87 +164,8 @@ public class Paint extends Application {
 		System.out.println(parameter.history_pointer);
 		if (parameter.history_pointer < parameter.history.size()) {
 			History current = parameter.history.get(parameter.history_pointer);
-			current.mergecolor();
+			draw(current);
 			parameter.history_pointer++;
-			gc.beginPath();
-			if (current.DRAW_MOD.equals("PENCIL")) {
-				gc.setLineWidth(current.DRAW_LINEWIDTH);
-				gc.setStroke(current.DRAW_COLOR);
-				for (int j = 0; j < current.point.size(); j++) {
-					gc.lineTo(current.point.get(j).getKey(), current.point.get(j).getValue());
-					gc.stroke();
-				}
-			}
-			if (current.DRAW_MOD.equals("ERASER")) {
-				gc.setLineWidth(current.DRAW_LINEWIDTH);
-				gc.setStroke(Color.WHITE);
-				for (int j = 0; j < current.point.size(); j++) {
-					gc.lineTo(current.point.get(j).getKey(), current.point.get(j).getValue());
-					gc.stroke();
-				}
-			}
-			if (current.DRAW_MOD.equals("SQUARE")) {
-				gc.setLineWidth(current.DRAW_LINEWIDTH);
-				gc.setStroke(current.DRAW_COLOR);
-				gc.setFill(current.DRAW_COLOR);
-				gc.fillRect(Math.min(current.DRAW_STARTX, current.DRAW_ENDX),
-						Math.min(current.DRAW_STARTY, current.DRAW_ENDY),
-						Math.abs(current.DRAW_ENDX - current.DRAW_STARTX),
-						Math.abs(current.DRAW_ENDY - current.DRAW_STARTY));
-
-			}
-			if (current.DRAW_MOD.equals("CIRCLE")) {
-				gc.setLineWidth(current.DRAW_LINEWIDTH);
-				gc.setStroke(current.DRAW_COLOR);
-				gc.setFill(current.DRAW_COLOR);
-				gc.fillOval(Math.min(current.DRAW_STARTX, current.DRAW_ENDX),
-						Math.min(current.DRAW_STARTY, current.DRAW_ENDY),
-						Math.abs(current.DRAW_ENDX - current.DRAW_STARTX),
-						Math.abs(current.DRAW_ENDY - current.DRAW_STARTY));
-			}
-			if (current.DRAW_MOD.equals("FILL")) {
-				PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
-				PixelWriter gpw = gc.getPixelWriter();
-				Color currnt_color = gpr.getColor(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue());
-				boolean visited[][] = new boolean[(int) canvas.getWidth()][(int) canvas.getHeight()];
-				Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-				q.add(new Pair<>(current.fillpoint.get(0).getKey(), current.fillpoint.get(0).getValue()));
-				while (!q.isEmpty()) {
-					Pair<Integer, Integer> pair = q.poll();
-					if (visited[pair.getKey()][pair.getValue()] == true)
-						continue;
-					visited[pair.getKey()][pair.getValue()] = true;
-					gpw.setColor(pair.getKey(), pair.getValue(), current.DRAW_COLOR);
-					if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {
-						if (pair.getKey() + 1 < canvas.getWidth()) {
-							q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
-							if (pair.getValue() + 1 < canvas.getHeight()) {
-								q.add(new Pair<>(pair.getKey() + 1, pair.getValue() + 1));
-							}
-							if (pair.getValue() - 1 >= 0) {
-								q.add(new Pair<>(pair.getKey() + 1, pair.getValue() - 1));
-							}
-						}
-						if (pair.getKey() - 1 >= 0) {
-							q.add(new Pair<>(pair.getKey() - 1, pair.getValue()));
-							if (pair.getValue() + 1 < canvas.getHeight()) {
-								q.add(new Pair<>(pair.getKey() - 1, pair.getValue() + 1));
-							}
-							if (pair.getValue() - 1 >= 0) {
-								q.add(new Pair<>(pair.getKey() - 1, pair.getValue() - 1));
-							}
-						}
-						if (pair.getValue() - 1 >= 0) {
-							q.add(new Pair<>(pair.getKey(), pair.getValue() - 1));
-						}
-						if (pair.getValue() + 1 < canvas.getHeight()) {
-							q.add(new Pair<>(pair.getKey(), pair.getValue() + 1));
-						}
-					}
-				}
-			}
-			gc.closePath();
-			current.separatecolor();
 		}
 	}
 
@@ -609,7 +446,12 @@ public class Paint extends Application {
 											final History todraw = parameter.Server.get(i).messages.peek().history;
 											Platform.runLater(new Runnable() {
 												@Override
-												public void run() {
+												public void run() {					
+													if (parameter.history.size() > parameter.history_pointer) {
+														parameter.history.subList(parameter.history_pointer, parameter.history.size()).clear();
+													}
+													parameter.history.add(todraw);
+													parameter.history_pointer++;
 													draw(todraw);
 												}
 											});
@@ -687,6 +529,11 @@ public class Paint extends Application {
 									Platform.runLater(new Runnable() {
 										@Override
 										public void run() {
+											if (parameter.history.size() > parameter.history_pointer) {
+												parameter.history.subList(parameter.history_pointer, parameter.history.size()).clear();
+											}
+											parameter.history.add(todraw);
+											parameter.history_pointer++;
 											draw(todraw);
 										}
 									});
