@@ -721,64 +721,6 @@ public class Paint extends Application {
 				border.getChildren().remove(parameter.penanimation);
 				if (parameter.START_DRAW) {
 					if (e.getX() > 140 && e.getY() > 20 && e.getY() < 380) {
-						if (parameter.DRAW_MOD == "SQUARE") {
-							gc.setFill(parameter.DRAW_COLOR);
-							gc.setStroke(parameter.DRAW_COLOR);
-							gc.fillRect(Math.min(parameter.DRAW_STARTX, (int) (Math.round(e.getX() - 140.0))),
-									Math.min(parameter.DRAW_STARTY, (int) (Math.round(e.getY() - 20.0))),
-									Math.abs((int) (Math.round(e.getX() - 140.0)) - parameter.DRAW_STARTX),
-									Math.abs((int) (Math.round(e.getY() - 20.0)) - parameter.DRAW_STARTY));
-						} else if (parameter.DRAW_MOD == "CIRCLE") {
-							gc.setFill(parameter.DRAW_COLOR);
-							gc.setStroke(parameter.DRAW_COLOR);
-							gc.fillOval(Math.min(parameter.DRAW_STARTX, (int) (Math.round(e.getX() - 140.0))),
-									Math.min(parameter.DRAW_STARTY, (int) (Math.round(e.getY() - 20.0))),
-									Math.abs((int) (Math.round(e.getX() - 140.0)) - parameter.DRAW_STARTX),
-									Math.abs((int) (Math.round(e.getY() - 20.0)) - parameter.DRAW_STARTY));
-						} else if (parameter.DRAW_MOD == "FILL") {
-							PixelReader gpr = canvas.snapshot(null, null).getPixelReader();
-							PixelWriter gpw = gc.getPixelWriter();
-							Color currnt_color = gpr.getColor((int) (e.getX() - 140.0), (int) (e.getY() - 20.0));
-							boolean visited[][] = new boolean[(int) canvas.getWidth()][(int) canvas.getHeight()];
-							Queue<Pair<Integer, Integer>> q = new LinkedList<>();
-							q.add(new Pair<>((int) (e.getX() - 140.0), (int) (e.getY() - 20.0)));
-							while (!q.isEmpty()) {
-								Pair<Integer, Integer> pair = q.poll();
-								if (visited[pair.getKey()][pair.getValue()] == true)
-									continue;
-								visited[pair.getKey()][pair.getValue()] = true;
-								gpw.setColor(pair.getKey(), pair.getValue(), parameter.DRAW_COLOR);	
-								if (gpr.getColor(pair.getKey(), pair.getValue()).equals(currnt_color)) {	
-									if (pair.getKey() + 1 < canvas.getWidth()) {
-										q.add(new Pair<>(pair.getKey() + 1, pair.getValue()));
-										if (pair.getValue() + 1 < canvas.getHeight()) {
-											q.add(new Pair<>(pair.getKey() + 1, pair.getValue() + 1));
-										}
-										if (pair.getValue() - 1 >= 0) {
-											q.add(new Pair<>(pair.getKey() + 1, pair.getValue() - 1));
-										}
-									}
-									if (pair.getKey() - 1 >= 0) {
-										q.add(new Pair<>(pair.getKey() - 1, pair.getValue()));
-										if (pair.getValue() + 1 < canvas.getHeight()) {
-											q.add(new Pair<>(pair.getKey() - 1, pair.getValue() + 1));
-										}
-										if (pair.getValue() - 1 >= 0) {
-											q.add(new Pair<>(pair.getKey() - 1, pair.getValue() - 1));
-										}
-									}
-									if (pair.getValue() - 1 >= 0) {
-										q.add(new Pair<>(pair.getKey(), pair.getValue() - 1));
-									}
-									if (pair.getValue() + 1 < canvas.getHeight()) {
-										q.add(new Pair<>(pair.getKey(), pair.getValue() + 1));
-									}
-								}	
-							}
-							parameter.historytmp.fillpoint
-									.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
-											Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
-						}
 						parameter.DRAW_STARTX = 0;
 						parameter.DRAW_STARTY = 0;
 						parameter.START_DRAW = false;
@@ -786,12 +728,18 @@ public class Paint extends Application {
 						// history
 						parameter.historytmp.DRAW_ENDX = (int) (Math.round(e.getX() - 140.0));
 						parameter.historytmp.DRAW_ENDY = (int) (Math.round(e.getY() - 20.0));
+						parameter.historytmp.fillpoint
+									.add(new Pair<Integer, Integer>(Integer.valueOf((int) (Math.round(e.getX() - 140))),
+											Integer.valueOf((int) (Math.round(e.getY() - 20.0)))));
 						parameter.historytmp.create_time = new Timestamp(System.currentTimeMillis());
 						if (parameter.history.size() > parameter.history_pointer) {
 							parameter.history.subList(parameter.history_pointer, parameter.history.size()).clear();
 						}
 						parameter.history.add(parameter.historytmp);
 						parameter.history_pointer++;
+
+						// draw and forward
+						draw(parameter.history.get(parameter.history_pointer - 1));
 						if (parameter.Client != null) {
 							try {
 								parameter.historytmp.separatecolor();
@@ -813,7 +761,6 @@ public class Paint extends Application {
 							}
 						}
 					}
-					gc.closePath();
 				}
 			}
 		});
